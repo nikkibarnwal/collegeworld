@@ -1,10 +1,12 @@
-export const sortData = (data, sortBy, orderBy, setCard) => {
+export const sortData = (data, sortBy, orderBy, setCollegeList) => {
   const sorted = [...data].sort(function (a, b) {
     return orderBy === true ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy];
   });
-  setCard(sorted);
+  setCollegeList(sorted);
 };
-
+export function paginate(array, page_size, page_number) {
+  return array.slice((page_number - 1) * page_size, page_number * page_size);
+}
 export const sortUp = (
   <svg
     xmlns="http://www.w3.org/2000/svg"

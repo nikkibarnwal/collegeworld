@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Loading from "./Loading";
 import CollegeComponent from "./CollegeComponent";
 import collegeData from "../Data.json";
-import { sortData } from "../utils";
+import { paginate, sortData } from "../utils";
 import Form from "react-bootstrap/Form";
 
 const Home = () => {
-  const [card, setCard] = useState([]);
+  const [collegeList, setCollegeList] = useState([]);
   const [page, setPage] = useState(1);
   const [filterData, setFilterData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [objSort, setObjSort] = useState({
     rating: true,
     fees: true,
     clgrating: true,
   });
 
-  function paginate(array, page_size, page_number) {
-    return array.slice((page_number - 1) * page_size, page_number * page_size);
-  }
   const getFilterData = (e) => {
     const searchVal = e.target.value;
     let data;
@@ -34,7 +29,7 @@ const Home = () => {
       setFilterData(null);
       data = paginate(collegeData, 10, page);
     }
-    setCard(data);
+    setCollegeList(data);
   };
   const getCardData = () => {
     let data;
@@ -43,11 +38,10 @@ const Home = () => {
     } else {
       data = paginate(collegeData, 10, page);
     }
-    setCard((prev) => [...prev, ...data]);
-    setLoading(false);
+    setCollegeList((prev) => [...prev, ...data]);
   };
   const getSortData = (sortBy, orderBy) => {
-    sortData(card, sortBy, orderBy, setCard);
+    sortData(collegeList, sortBy, orderBy, setCollegeList);
   };
   useEffect(() => {
     getCardData();
@@ -60,7 +54,6 @@ const Home = () => {
         window.innerHeight + document.documentElement.scrollTop + 1 >=
         document.documentElement.scrollHeight
       ) {
-        setLoading(true);
         setPage((prev) => prev + 1);
       }
     } catch (error) {
@@ -83,12 +76,11 @@ const Home = () => {
         />
       </Form>
       <CollegeComponent
-        collegeInfo={card}
+        collegeInfo={collegeList}
         objSort={objSort}
         setObjSort={setObjSort}
         getSortData={getSortData}
       />
-      {loading && <Loading />}
     </>
   );
 };
