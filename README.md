@@ -38,4 +38,6 @@ To run the application locally, follow these steps:
 4. HTML
 
 ## Contributor
-[Nikki Burnwal] ([https://github.com/nikkibarnwal/collegeworld])
+[Nikki Burnwal] 
+Git - ([https://github.com/nikkibarnwal/collegeworld])
+Linkedin - ([https://www.linkedin.com/in/nikki-burnwal])
