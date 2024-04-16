@@ -5,15 +5,21 @@ import { paginate, sortData } from "../utils";
 import Form from "react-bootstrap/Form";
 
 const Home = () => {
+  /**collegeList stores the list of colleges and their data using the useState hook.*/
   const [collegeList, setCollegeList] = useState([]);
+  /** create useState hook to keeps track of the current page number for pagination, by default it will be 1*/
   const [page, setPage] = useState(1);
+  /** create useState hook to store  filtered college data based on search criteria. */
   const [filterData, setFilterData] = useState(null);
+  /** create useState hook to maintains the sorting state for different columns such as rating, fees, and college rating. */
   const [objSort, setObjSort] = useState({
     rating: true,
     fees: true,
     clgrating: true,
   });
-
+  const getSortData = (sortBy, orderBy) => {
+    sortData(collegeList, sortBy, orderBy, setCollegeList);
+  };
   const getFilterData = (e) => {
     const searchVal = e.target.value;
     let data;
@@ -40,9 +46,7 @@ const Home = () => {
     }
     setCollegeList((prev) => [...prev, ...data]);
   };
-  const getSortData = (sortBy, orderBy) => {
-    sortData(collegeList, sortBy, orderBy, setCollegeList);
-  };
+
   useEffect(() => {
     getCardData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
